@@ -8,7 +8,7 @@ import {
 import React, { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import firestore from "@react-native-firebase/firestore";
-import { auth } from "@react-native-firebase/auth";
+import auth from "@react-native-firebase/auth";
 
 const Login = () => {
   const [phoneNumber, setPhoneNumber] = useState("");
@@ -20,7 +20,9 @@ const Login = () => {
     try {
       const confirmation = await auth().signInWithPhoneNumber(phoneNumber);
       setConfirm(confirmation);
-    } catch (error) {}
+    } catch (error) {
+      console.log("error in signin with phone", error);
+    }
   };
   const confirmCode = async () => {
     try {
@@ -38,7 +40,7 @@ const Login = () => {
         navigation.navigate("Dashboard");
       } else {
         //USer is new, navigate to Details
-        navigation.navigate("Detail", { uid: user.uid });
+        navigation.navigate("Details", { uid: user.uid });
       }
     } catch (error) {
       console.log("Invalid code.", error);
@@ -86,7 +88,7 @@ const Login = () => {
       ) : (
         <>
           <Text style={{ marginBottom: 20, fontSize: 18 }}>
-            Enter the code sent to your phonr number
+            Enter the code sent to your phone number
           </Text>
           <TextInput
             style={{
@@ -112,7 +114,7 @@ const Login = () => {
             }}
           >
             <Text style={{ color: "white", fontSize: 22, fontWeight: "bold" }}>
-              COnfirm Code
+              Confirm Code
             </Text>
           </TouchableOpacity>
         </>

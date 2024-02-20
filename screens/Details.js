@@ -16,7 +16,7 @@ const Details = ({ route, navigation }) => {
 
   const saveDetails = async () => {
     try {
-      await firestore.collection("users").doc(uid).set({
+      await firestore().collection("users").doc(uid).set({
         name,
         dob,
         gender,
